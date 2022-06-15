@@ -1,0 +1,120 @@
+<div class="container custom-container-2">
+  <div *ngIf="Actividades.length !== 0">
+    <h3 class="mb-3 text-center">Lista de actividades</h3>
+
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Id actividad</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha ejecución</th>
+            <th scope="col">Fecha cierre</th>
+            <th scope="col">Dias retraso</th>
+            <th scope="col">Empleado responsable</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let actividad of Actividades">
+            <td>{{actividad.idActividad}}</td>
+            <td *ngIf="actividad.estado == 1">Realizado</td>
+            <td *ngIf="actividad.estado == 2">Pendiente</td>
+            <td>{{actividad.fechaEjecucion}}</td>
+            <td>{{actividad.fechaCierre}}</td>
+            <td>{{actividad.diasRetraso}}</td>
+            <td>{{actividad.idEmpleado.nombre}}</td>
+            <td>
+              <span class="btn btn-success btn-lg btn-block" (click)="editarActividad(actividad)">Editar</span>
+              <span class="btn btn-danger btn-lg btn-block"
+                (click)="eliminarActividad(actividad.idActividad)">Eliminar</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <h3 class="mb-3 text-center">Crear actividad</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha ejecución</th>
+            <th scope="col">Empleado responsable</th>
+            <th scope="col">Crear</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>
+            <select matNativeControl [(ngModel)]="slectEstado" name="estado">
+              <option *ngFor="let estado of Estados" [value]="estado.id">
+                {{estado.valor}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <input [(ngModel)]="fecha" type="date" data-date="" data-date-format="yyy-MM-dd" value="">
+          </td>
+          <td>
+            <select matNativeControl [(ngModel)]="slectEmpleado" name="empleado">
+              <option *ngFor="let empleado of Empleados" [value]="empleado.idEmpleado">
+                {{empleado.nombre}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="btn btn-success btn-lg btn-block"
+              (click)="agregarActividad(0, slectEstado, fecha, slectEmpleado)">Crear</span>
+          </td>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="Actividades.length == 0">
+    <h3 class="mb-3 text-center">No hay actividades creadas</h3>
+  </div>
+
+  <div *ngIf="this.habilitarEditar" class="col-md-12">
+    <h3 class="mb-3 text-center">Editar</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Id actividad</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha ejecución</th>
+          <th scope="col">Empleado responsable</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+          <td>{{ActividEditar.idActividad}}</td>
+          <td>
+            <select matNativeControl [(ngModel)]="slectEstadoEditar" name="estado">
+              <option *ngFor="let estado of Estados" [value]="estado.id">
+                {{estado.valor}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <input [(ngModel)]="fechaEditar" type="date" data-date="" data-date-format="yyy-MM-dd" value="">
+          </td>
+          <td>
+            <select matNativeControl [(ngModel)]="slectEmpleadoEditar" name="empleado">
+              <option *ngFor="let empleado of Empleados" [value]="empleado.idEmpleado">
+                {{empleado.nombre}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span class="btn btn-success btn-lg btn-block" (click)="agregarActividad(ActividEditar.idActividad, slectEstadoEditar, fechaEditar, slectEmpleadoEditar)">Editar</span>
+          </td>
+      </tbody>
+    </table>
+  </div>
+
+</div>

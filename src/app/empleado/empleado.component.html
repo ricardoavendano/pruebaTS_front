@@ -1,0 +1,50 @@
+<div class="container custom-container-2">
+  <div *ngIf="Empleados.length !== 0">
+    <h3 class="mb-3 text-center">Lista de empleados</h3>
+
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of Empleados">
+            <td>{{empleado.idEmpleado}}</td>
+            <td>{{empleado.nombre}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div *ngIf="Empleados.length == 0">
+    <h3 class="mb-3 text-center">No hay empleados creados</h3>
+  </div>
+
+  <div class="col-md-12">
+    <h3 class="mb-3 text-center">Crear empleado</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Nombre empleado</th>
+          <th scope="col">Crear</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>
+          <input id="nombre" [(ngModel)]="nombre" matInput type="text" placeholder="Nombre empleado" autocomplete="off"
+            maxlength="100" />
+        </td>
+        <td>
+          <span class="btn btn-success btn-lg btn-block" (click)="agregarEmpleado(nombre)">Crear</span>
+        </td>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
